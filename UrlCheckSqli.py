@@ -1,3 +1,4 @@
+import csv
 import os
 import random
 import threading
@@ -28,21 +29,28 @@ def runSqliTest (url,payload, toruse, port):
             elif ("error in your SQL syntax" in text ):
                 print("[+] seems to be vulnerable to SQL injection")
                 print ("Possible database system manager: MySQl")
-                r1 = Result(url, payload, "MySQl server","")
-                results.append(r1)
+                saveResults(payload, url)
 
             elif ( "SQL command not properly ended"in text ):
                 print("[+] seems to be vulnerable to SQL injection")
                 print("Possible database system manager :Oracle")
-                r1 = Result(url, payload, "Oracle","")
-                results.append(r1)
+                saveResults(payload, url)
             elif ("Query failed: ERROR: syntax error at or near" in text):
                 print("[+] seems to be vulnerable to SQL injection")
                 print("Possible database system manager :Oracle")
-                r1 = Result(url, payload, "PostgreSQL", "")
-                results.append(r1)
+                saveResults(payload, url)
+
+
         except :return
     return
+
+
+def saveResults(payload, url):
+    r1 = Result(url, payload, "MySQl server", "")
+    results.append(r1)
+    dir = os.getcwd()
+    writer = csv.writer(open(dir + "/results", 'w'))
+    writer.writerows(r1)
 
 
 def prepareRequest(port, toruse, url):
@@ -75,12 +83,18 @@ def checkForSqli(url, torUse, port):
                 t = threading.Thread(target=runSqliTest, args=(url,p,torUse,port,))
                 threads.append(t)
                 t.start()
-                if (len(threads)>10):
-                    time.sleep(0.3)
-            threads.clear()
-    if (len(results)>0):print('[+] Number of affected websites is:' + str(len(results)))
-    for rr in results:
-        print("[+] " + "Url:" + rr.url + " oaylaod:" +rr.paylaod + " database system manager:" +rr.datatype)
+            time.sleep(5)
+
+    if (len(results)>0):
+        print('[+] Number of affected websites is:' + str(len(results)))
+        dir = os.getcwd()
+        writer = csv.writer(open(dir+"/results", 'w'))
+        for rr in results:
+            print("[+] " + "Url:" + rr.url + " oaylaod:" + rr.paylaod + " database system manager:" + rr.datatype)
+            writer.writerows(rr)
+
+
+
 
 
 
