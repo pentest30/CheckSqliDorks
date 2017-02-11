@@ -120,7 +120,6 @@ def prepareGetRequest(port, toruse, url):
     rd = random.randint(0, len(headers) - 1)
     header = {"user-agent": headers[rd].strip()}
     try:
-        # check if the methode is a GET or POST
 
         if toruse == "yes":
             proxies = {'socks5': '127.0.0.1:' + port}
@@ -141,8 +140,7 @@ def checkForSqli(url, torUse, port):
             fi = open(dir + "/" + f, "r")
             paylaods = fi.readlines()
             for p in paylaods:
-                pp = url + p
-                # runSqliTest(url, p,torUse, port)
+
                 t = threading.Thread(target=runSqliTest, args=(url, p, torUse, port,))
                 threads.append(t)
                 t.start()
@@ -154,6 +152,6 @@ def checkForSqli(url, torUse, port):
             for rr in results:
                 print(
                     "[+] " + "Url: " + rr.url + " paylaod: " + rr.paylaod + " database system manager: " + rr.dataType)
-                # writer.writerows(rr)
+              
     except:
         return
