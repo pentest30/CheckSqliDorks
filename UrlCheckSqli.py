@@ -1,12 +1,12 @@
-import csv
 import os
 import random
 import threading
 import time
+from urllib.parse import urlparse, parse_qs
 import requests
-import Result
 from bs4 import BeautifulSoup
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
+import Result
 
 results = []
 
@@ -14,15 +14,30 @@ results = []
 def saveResults(payload, url):
     r1 = Result.Result(url, payload, "MySQl server", "")
     results.append(r1)
-    dir = os.getcwd()+"/result.txt"
-    writer = open(dir , 'a')
-    writer.write('\n' + "Url: " + r1.url + " paylaod: " + r1.paylaod + " database system manager: " + r1.dataType )
+    dir = os.getcwd() + "/result.txt"
+    writer = open(dir, 'a')
+    writer.write('\n' + "Url: " + r1.url + " paylaod: " + r1.paylaod + " database system manager: " + r1.dataType)
     writer.close()
-def runSqliTest(url, payload, toruse, port):
-    for rrr in results:
-        if rrr.url == url: return
 
-    r = prepareRequest(port, toruse, url + payload)
+
+def runSqliTest(url, payload, toruse, port):
+    o = urlparse(url)
+    query = parse_qs(o.query)
+    if query != {}:
+        r = prepareRequest(port, toruse, url + payload)
+        basicGetSqliCheck(r,url, payload)
+    elif query=={}:
+        print("")
+
+
+
+def basicGetSqliCheck(r,url, payload):
+    for rrr in results:
+        if rrr.url in url or url in rrr.url:
+            break
+            return
+
+
     if r == '':
         return
 
@@ -31,7 +46,7 @@ def runSqliTest(url, payload, toruse, port):
             soup = BeautifulSoup(r.text, 'html.parser')
             text = ''.join(soup.text)
             if (
-                    'Microsoft OLE DB Provider for ODBC Drivers error' in text or 'Microsoft SQL Native Client error' in text):
+                            'Microsoft OLE DB Provider for ODBC Drivers error' in text or 'Microsoft SQL Native Client error' in text):
                 print("[+] seems to be vulnerable to SQL injection")
                 print(" [+] Possible database system manager: MS SQl server")
                 saveResults(payload, url)
@@ -60,8 +75,6 @@ def runSqliTest(url, payload, toruse, port):
             return
 
 
-
-
 def prepareRequest(port, toruse, url):
     requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
     dir = os.getcwd() + "/user-agents/user-agents.txt"
@@ -70,11 +83,14 @@ def prepareRequest(port, toruse, url):
     rd = random.randint(0, len(headers) - 1)
     header = {"user-agent": headers[rd].strip()}
     try:
+        # check if the methode is a GET or POST
+
         if toruse == "yes":
             proxies = {'socks5': '127.0.0.1:' + port}
             r = requests.get(url, headers=header, proxies=proxies, verify=False)
         else:
             r = requests.get(url, headers=header, verify=False)
+
         return r
     except:
         return
@@ -89,7 +105,7 @@ def checkForSqli(url, torUse, port):
             paylaods = fi.readlines()
             for p in paylaods:
                 pp = url + p
-                #runSqliTest(url, p,torUse, port)
+                # runSqliTest(url, p,torUse, port)
                 t = threading.Thread(target=runSqliTest, args=(url, p, torUse, port,))
                 threads.append(t)
                 t.start()
@@ -99,6 +115,8 @@ def checkForSqli(url, torUse, port):
         if (len(results) > 0):
             print('[+] Number of affected websites is:' + str(len(results)))
             for rr in results:
-                print("[+] " + "Url: " + rr.url + " paylaod: " + rr.paylaod + " database system manager: " + rr.dataType)
+                print(
+                    "[+] " + "Url: " + rr.url + " paylaod: " + rr.paylaod + " database system manager: " + rr.dataType)
                 # writer.writerows(rr)
-    except:return
+    except:
+        return
