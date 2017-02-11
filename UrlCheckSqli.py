@@ -144,7 +144,7 @@ def checkForSqli(url, torUse, port):
                 t = threading.Thread(target=runSqliTest, args=(url, p, torUse, port,))
                 threads.append(t)
                 t.start()
-                time.sleep(0.05)
+                time.sleep(0.5)
 
     try:
         if (len(results) > 0):
@@ -152,6 +152,6 @@ def checkForSqli(url, torUse, port):
             for rr in results:
                 print(
                     "[+] " + "Url: " + rr.url + " paylaod: " + rr.paylaod + " database system manager: " + rr.dataType)
-              
+
     except:
         return
