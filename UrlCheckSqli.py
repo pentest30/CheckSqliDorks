@@ -47,7 +47,8 @@ def blindSqlCHeck():
 
 def runSqliTest(url, payload, toruse, port):
     for rrr in results:
-        if rrr.url in url or url in rrr.url:
+        if url == rrr.url:
+            #print(url)
             return
     o = urlparse(url)
     query = parse_qs(o.query)
@@ -73,9 +74,6 @@ def runSqliTest(url, payload, toruse, port):
 
 
 def basicSqliCheck(r,url, payload):
-
-
-
     if r == '':
         return
 
