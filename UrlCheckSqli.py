@@ -16,7 +16,7 @@ def saveResults(payload, url):
     results.append(r1)
     dir = os.getcwd() + "/result.txt"
     writer = open(dir, 'a')
-    writer.write('\n' + "Url: " + r1.url + " paylaod: " + r1.paylaod + " database system manager: " + r1.dataType)
+    writer.write('\n' + "Url: " + r1.url + " paylpad: " + r1.payload + " database system manager: " + r1.dataType)
     writer.close()
 
 
@@ -134,7 +134,7 @@ def prepareGetRequest(port, toruse, url):
 
 def checkForSqli(url, torUse, port):
     threads = []
-    dir = os.getcwd() + "/paylaods/"
+    dir = os.getcwd() + "/payloads/"
     for subdir, dirs, files in os.walk(dir):
         for f in files:
             fi = open(dir + "/" + f, "r")
@@ -151,7 +151,7 @@ def checkForSqli(url, torUse, port):
             print('[+] Number of affected websites is:' + str(len(results)))
             for rr in results:
                 print(
-                    "[+] " + "Url: " + rr.url + " paylaod: " + rr.paylaod + " database system manager: " + rr.dataType)
+                    "[+] " + "Url: " + rr.url + " payload: " + rr.payload + " database system manager: " + rr.dataType)
 
     except:
         return

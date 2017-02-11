@@ -17,13 +17,13 @@ def getUrls(search_string):
     r= requests.get( url + search_string,  headers=header)
     soup= BeautifulSoup( r.text, 'html.parser' )
     h3tags= soup.find_all( 'h3' )
-    print(h3tags)
+
     if (len(h3tags)>0):
         for h3 in h3tags:
             try:
                 pos= parse.unquote(h3.find('a').get('href').replace("/url?q=", '')).find("&sa")
                 ut = parse.unquote(h3.find('a').get('href').replace("/url?q=", ''))
-                print(pos)
+              
                 if (pos>-1):
                     s =0
                     ur =""
