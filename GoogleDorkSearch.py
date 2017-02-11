@@ -6,15 +6,19 @@ import requests
 from bs4 import BeautifulSoup
 
 
-def getUrls(search_string):
+def getUrls(search_string , tor,port):
     temp= []
     url = 'https://www.google.com/search?q='
     dir=os.getcwd()+"/user-agents/user-agents.txt"
     f = open(dir, "r")
     headerslist = f.readlines()
-    r=random.randint(0, len(headerslist)-1)
-    header ={"user-agent" : headerslist[r].strip()}
-    r= requests.get( url + search_string,  headers=header)
+    rd=random.randint(0, len(headerslist)-1)
+    header = {"user-agent": headerslist[rd].strip()}
+
+    if tor == "yes":
+        proxies = {'socks5': '127.0.0.1:' + port}
+        r = requests.get(url + search_string, headers=header, proxies=proxies)
+    else:r= requests.get( url + search_string,  headers=header)
     soup= BeautifulSoup( r.text, 'html.parser' )
     h3tags= soup.find_all( 'h3' )
 
@@ -23,7 +27,7 @@ def getUrls(search_string):
             try:
                 pos= parse.unquote(h3.find('a').get('href').replace("/url?q=", '')).find("&sa")
                 ut = parse.unquote(h3.find('a').get('href').replace("/url?q=", ''))
-              
+
                 if (pos>-1):
                     s =0
                     ur =""

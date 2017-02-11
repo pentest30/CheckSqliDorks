@@ -46,6 +46,9 @@ def blindSqlCHeck():
 
 
 def runSqliTest(url, payload, toruse, port):
+    for rrr in results:
+        if rrr.url in url or url in rrr.url:
+            return
     o = urlparse(url)
     query = parse_qs(o.query)
     # check if the methode is a GET or POST
@@ -70,9 +73,7 @@ def runSqliTest(url, payload, toruse, port):
 
 
 def basicSqliCheck(r,url, payload):
-    for rrr in results:
-        if rrr.url in url or url in rrr.url:
-            return
+
 
 
     if r == '':
@@ -141,10 +142,14 @@ def checkForSqli(url, torUse, port):
             paylaods = fi.readlines()
             for p in paylaods:
 
-                t = threading.Thread(target=runSqliTest, args=(url, p, torUse, port,))
-                threads.append(t)
-                t.start()
-                time.sleep(0.5)
+               t = threading.Thread(target=runSqliTest, args=(url, p, torUse, port,))
+               threads.append(t)
+               try:
+                   t.start()
+                   time.sleep(0.10)
+               except:
+                   time.sleep(0.10)
+
 
     try:
         if (len(results) > 0):

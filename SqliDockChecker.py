@@ -24,7 +24,7 @@ def main():
            for d in dorks:
                 print ("[+] search for :"+d.strip())
                 print('---------------------------------')
-                links=GoogleDorkSearch.getUrls(d.strip())
+                links=GoogleDorkSearch.getUrls(d.strip() , response, port)
                 if len(links)>0:
                     for l in links:
                         print('---------------------------------')

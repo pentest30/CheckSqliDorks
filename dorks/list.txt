@@ -1,5 +1,5 @@
-addToCart.php?idProduct=
 content.php?id=
+addToCart.php?idProduct=
 view_items.php?id=
 default.php?cPath=
 book.php?id=
