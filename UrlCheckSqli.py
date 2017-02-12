@@ -52,9 +52,14 @@ def runSqliTest(url, payload, toruse, port , fuzzingType):
             return
     o = urlparse(url)
     query = parse_qs(o.query)
+
     # check if the methode is a GET or POST
     if query != {}:
-        r = prepareGetRequest(port, toruse, url + payload)
+        data = {}
+        for q in query:
+            data[q] = payload
+
+        r = preparePOSTRequest(port, toruse,o.geturl() , data)
         if (fuzzingType =="Normal"):basicSqliCheck(r,url, payload)
         else:blindSqlCHeck()
     elif query=={}:
@@ -153,13 +158,13 @@ def checkForSqli(url, torUse, port):
                 except:
                    time.sleep(0.10)
 
+    displayResults()
 
-    try:
-        if (len(results) > 0):
-            print('[+] Number of affected websites is:' + str(len(results)))
-            for rr in results:
-                print(
-                    "[+] " + "Url: " + rr.url + " payload: " + rr.payload + " database system manager: " + rr.dataType)
 
-    except:
-        return
+
+def displayResults():
+    if (len(results) > 0):
+        print('[+] Number of affected websites is:' + str(len(results)))
+        for rr in results:
+            print(
+                "[+] " + "Url: " + rr.url + " [+] payload: " + rr.payload + "[+] database system manager: " + rr.dataType)
