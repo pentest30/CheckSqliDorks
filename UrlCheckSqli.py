@@ -165,9 +165,12 @@ def checkForSqli(url, torUse, port):
                 t = threading.Thread(target=runSqliTest, args=(url, p, torUse, port,fuzzing,))
                 threads.append(t)
                 try:
-                   t.start()
-                   time.sleep(0.3)
+                   try:
+                       t.start()
+                       time.sleep(0.1)
+                   except:time.sleep(0.1)
                 except (KeyboardInterrupt, SystemExit) :
+
                     print (Fore.RED," [-] Ctrl-c received! Sending kill to threads...")
                     for t in threads:
                         t.kill_received = True
