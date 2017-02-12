@@ -1,15 +1,15 @@
 import os
 import random
+import  signal
+import sys
 import threading
-import time
 from urllib.parse import urlparse, parse_qs
 import requests
-import sys
 from bs4 import BeautifulSoup
-from requests.packages.urllib3.exceptions import InsecureRequestWarning
-import Result
 from colorama import *
-import  signal
+from requests.packages.urllib3.exceptions import InsecureRequestWarning
+
+import Result
 
 results = []
 
