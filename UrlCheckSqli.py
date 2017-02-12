@@ -183,4 +183,4 @@ def displayResults():
         print('[+] Number of affected websites is:' + str(len(results)))
         for rr in results:
             print(Fore.GREEN,Style.BRIGHT,
-                "[+] " + "Url: " + rr.url + " [+] payload: " + rr.payload + "[+] database system manager: " + rr.dataType)
+                "[+] " + "Url: " + rr.url + " [+] payload: " + rr.payload + "[+] database : " + rr.dataType)
