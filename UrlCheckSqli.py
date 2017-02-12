@@ -18,7 +18,7 @@ results = []
 def saveResults(payload, url):
     r1 = Result.Result(url, payload, "MySQl server", "")
     for rrr in results:
-        if url == r1.url:
+        if rrr.url == r1.url:
             # threading.Lock().release()
             return
     results.append(r1)
