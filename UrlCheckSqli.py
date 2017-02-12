@@ -121,6 +121,7 @@ def basicSqliCheck(r,url, payload):
             return
 
 
+
 def prepareGetRequest(port, toruse, url):
     requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
     dir = os.getcwd() + "/user-agents/user-agents.txt"
