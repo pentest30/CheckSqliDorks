@@ -5,6 +5,7 @@ import sys
 import threading
 from urllib.parse import urlparse, parse_qs
 import requests
+import time
 from bs4 import BeautifulSoup
 from colorama import *
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
@@ -165,7 +166,7 @@ def checkForSqli(url, torUse, port):
                 threads.append(t)
                 try:
                    t.start()
-                   signal.pause()
+                   time.sleep(0.1)
                 except (KeyboardInterrupt, SystemExit) :
                     print (Fore.RED," [-] Ctrl-c received! Sending kill to threads...")
                     for t in threads:
