@@ -100,24 +100,24 @@ def basicSqliCheck(r,url, payload):
             if (
                             'Microsoft OLE DB Provider for ODBC Drivers error' in text or 'Microsoft SQL Native Client error' in text):
                 print(Fore.RED,Style.BRIGHT, "[+] seems to be vulnerable to SQL injection")
-                print(Fore.GREEN,Style.BRIGHT," [+] Possible database system manager: MS SQl server")
+                print(Fore.GREEN,Style.BRIGHT," [+] Possible database : MS SQl server")
                 saveResults(payload, url)
                 return
 
             elif ("error in your SQL syntax" in text):
                 print(Fore.RED,Style.BRIGHT,"[+] seems to be vulnerable to SQL injection")
-                print(Fore.GREEN,Style.BRIGHT,"[+] Possible database system manager: MySQl")
+                print(Fore.GREEN,Style.BRIGHT,"[+] Possible database: MySQl")
                 saveResults(payload, url)
                 return
 
             elif ("SQL command not properly ended" in text):
                 print(Fore.RED,Style.BRIGHT,"[+] seems to be vulnerable to SQL injection")
-                print(Fore.GREEN,Style.BRIGHT,"[+] Possible database system manager :Oracle")
+                print(Fore.GREEN,Style.BRIGHT,"[+] Possible database :Oracle")
                 saveResults(payload, url)
                 return
             elif ("Query failed: ERROR: syntax error at or near" in text):
                 print(Fore.RED,Style.BRIGHT,"[+] seems to be vulnerable to SQL injection")
-                print(Fore.GREEN,Style.BRIGHT,"[+] Possible database system manager :Oracle")
+                print(Fore.GREEN,Style.BRIGHT,"[+] Possible database :Oracle")
                 saveResults(payload, url)
                 return
 
