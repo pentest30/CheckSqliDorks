@@ -168,7 +168,7 @@ def checkForSqli(url, torUse, port):
                    try:
                        t.start()
                        time.sleep(0.1)
-                   except:time.sleep(0.1)
+                   except:time.sleep(0.2)
                 except (KeyboardInterrupt, SystemExit) :
 
                     print (Fore.RED," [-] Ctrl-c received! Sending kill to threads...")
