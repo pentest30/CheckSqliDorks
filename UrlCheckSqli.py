@@ -1,11 +1,11 @@
 import os
 import random
-import  signal
 import sys
 import threading
-from urllib.parse import urlparse, parse_qs
-import requests
 import time
+from urllib.parse import urlparse, parse_qs
+
+import requests
 from bs4 import BeautifulSoup
 from colorama import *
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
