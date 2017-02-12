@@ -31,7 +31,7 @@ def main():
                 if len(links)>0:
                     for l in links:
                         print('---------------------------------')
-                        print(Fore.BLUE,'[+]  Current URL ' + l  )
+                        print(Fore.WHITE,'[+]  Current URL ' + l  )
                         UrlCheckSqli.checkForSqli(l, response, port )
 
 

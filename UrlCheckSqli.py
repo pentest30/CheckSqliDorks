@@ -4,21 +4,26 @@ import threading
 import time
 from urllib.parse import urlparse, parse_qs
 import requests
+import sys
 from bs4 import BeautifulSoup
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 import Result
 from colorama import *
-
+import  signal
 
 results = []
 
 
 def saveResults(payload, url):
     r1 = Result.Result(url, payload, "MySQl server", "")
+    for rrr in results:
+        if url == r1.url:
+            # threading.Lock().release()
+            return
     results.append(r1)
-    dir = os.getcwd() + "/result.txt"
+    dir = os.getcwd() + "/result.csv"
     writer = open(dir, 'a')
-    writer.write('\n' + "Url: " + r1.url + " paylpad: " + r1.payload + " database system manager: " + r1.dataType)
+    writer.write('\n' + "Url: " + r1.url )
     writer.close()
 
 
@@ -160,9 +165,13 @@ def checkForSqli(url, torUse, port):
                 threads.append(t)
                 try:
                    t.start()
-                   time.sleep(0.10)
-                except:
-                   time.sleep(0.10)
+                   signal.pause()
+                except (KeyboardInterrupt, SystemExit) :
+                    print (Fore.RED," [-] Ctrl-c received! Sending kill to threads...")
+                    for t in threads:
+                        t.kill_received = True
+                    sys.exit()
+
 
 
 
