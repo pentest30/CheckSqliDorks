@@ -7,6 +7,8 @@ import requests
 from bs4 import BeautifulSoup
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 import Result
+from colorama import *
+
 
 results = []
 
@@ -46,10 +48,12 @@ def blindSqlCHeck():
 
 
 def runSqliTest(url, payload, toruse, port , fuzzingType):
+
     for rrr in results:
         if url == rrr.url:
-            #print(url)
+            #threading.Lock().release()
             return
+
     o = urlparse(url)
     query = parse_qs(o.query)
 
@@ -75,7 +79,8 @@ def runSqliTest(url, payload, toruse, port , fuzzingType):
                    r2 = preparePOSTRequest(port, toruse, url ,data)
                    basicSqliCheck(r2, url, payload)
 
-           except:return
+           except:
+               return
 
 
 def basicSqliCheck(r,url, payload):
@@ -88,25 +93,25 @@ def basicSqliCheck(r,url, payload):
             text = ''.join(soup.text)
             if (
                             'Microsoft OLE DB Provider for ODBC Drivers error' in text or 'Microsoft SQL Native Client error' in text):
-                print("[+] seems to be vulnerable to SQL injection")
-                print(" [+] Possible database system manager: MS SQl server")
+                print(Fore.RED,Style.BRIGHT, "[+] seems to be vulnerable to SQL injection")
+                print(Fore.GREEN,Style.BRIGHT," [+] Possible database system manager: MS SQl server")
                 saveResults(payload, url)
                 return
 
             elif ("error in your SQL syntax" in text):
-                print("[+] seems to be vulnerable to SQL injection")
-                print("[+] Possible database system manager: MySQl")
+                print(Fore.RED,Style.BRIGHT,"[+] seems to be vulnerable to SQL injection")
+                print(Fore.GREEN,Style.BRIGHT,"[+] Possible database system manager: MySQl")
                 saveResults(payload, url)
                 return
 
             elif ("SQL command not properly ended" in text):
-                print("[+] seems to be vulnerable to SQL injection")
-                print("[+] Possible database system manager :Oracle")
+                print(Fore.RED,Style.BRIGHT,"[+] seems to be vulnerable to SQL injection")
+                print(Fore.GREEN,Style.BRIGHT,"[+] Possible database system manager :Oracle")
                 saveResults(payload, url)
                 return
             elif ("Query failed: ERROR: syntax error at or near" in text):
-                print("[+] seems to be vulnerable to SQL injection")
-                print("[+] Possible database system manager :Oracle")
+                print(Fore.RED,Style.BRIGHT,"[+] seems to be vulnerable to SQL injection")
+                print(Fore.GREEN,Style.BRIGHT,"[+] Possible database system manager :Oracle")
                 saveResults(payload, url)
                 return
 
@@ -158,7 +163,7 @@ def checkForSqli(url, torUse, port):
                 except:
                    time.sleep(0.10)
 
-    displayResults()
+
 
 
 
@@ -166,5 +171,5 @@ def displayResults():
     if (len(results) > 0):
         print('[+] Number of affected websites is:' + str(len(results)))
         for rr in results:
-            print(
+            print(Fore.GREEN,Style.BRIGHT,
                 "[+] " + "Url: " + rr.url + " [+] payload: " + rr.payload + "[+] database system manager: " + rr.dataType)
