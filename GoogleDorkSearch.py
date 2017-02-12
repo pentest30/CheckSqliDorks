@@ -26,7 +26,12 @@ def getUrls(search_string , tor,port):
         for h3 in h3tags:
             try:
                 pos= parse.unquote(h3.find('a').get('href').replace("/url?q=", '')).find("&sa")
-                ut = parse.unquote(h3.find('a').get('href').replace("/url?q=", ''))
+                ut = parse.unquote(h3.find('a').get('href').replace("/url?q=", '').replace('&lang=en',''))
+
+                if (ut.find('&lang=en')>-1):ut.replace('&lang=en','')
+                if (ut.find('http://www.google.com/url?url=')>-1): ut.replace('http://www.google.com/url?url =', '')
+                if (ut.find('&rct=j&q=&esrc=s') > -1): ut.replace('&rct=j&q=&esrc=s', '')
+
 
                 if (pos>-1):
                     s =0

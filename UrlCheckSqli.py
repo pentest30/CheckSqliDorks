@@ -45,7 +45,7 @@ def blindSqlCHeck():
     pass
 
 
-def runSqliTest(url, payload, toruse, port):
+def runSqliTest(url, payload, toruse, port , fuzzingType):
     for rrr in results:
         if url == rrr.url:
             #print(url)
@@ -55,8 +55,8 @@ def runSqliTest(url, payload, toruse, port):
     # check if the methode is a GET or POST
     if query != {}:
         r = prepareGetRequest(port, toruse, url + payload)
-        basicSqliCheck(r,url, payload)
-        blindSqlCHeck()
+        if (fuzzingType =="Normal"):basicSqliCheck(r,url, payload)
+        else:blindSqlCHeck()
     elif query=={}:
         r = preparePOSTRequest(port, toruse, url ,{})
         if r!='':
@@ -107,7 +107,7 @@ def basicSqliCheck(r,url, payload):
 
 
         except BaseException as e:
-            print(str(e))
+            #print(str(e))
             return
 
 
@@ -139,13 +139,18 @@ def checkForSqli(url, torUse, port):
             fi = open(dir + "/" + f, "r")
             paylaods = fi.readlines()
             for p in paylaods:
+                if f.find('blind') > -1:
+                    tt =random.randint(3,20)
+                    p.replace('__TIME__', str(tt))
+                    fuzzing="Blind"
+                else:fuzzing="Normal"
 
-               t = threading.Thread(target=runSqliTest, args=(url, p, torUse, port,))
-               threads.append(t)
-               try:
+                t = threading.Thread(target=runSqliTest, args=(url, p, torUse, port,fuzzing,))
+                threads.append(t)
+                try:
                    t.start()
                    time.sleep(0.10)
-               except:
+                except:
                    time.sleep(0.10)
 
 

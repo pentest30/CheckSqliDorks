@@ -1,14 +1,16 @@
 import os
 import GoogleDorkSearch
 import UrlCheckSqli
+import argparse
 def main():
        port="0"
 
-       print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-")
+
+       print("######################################################################################################################")
        print("[+] script by pentest30, email : adgroupe@hotmail.com")
        print("[+] The aim of this script is to help you do a quick check for the websites returned from a search based on a list of dorks of your choice if they are vulnerable to SQL injections. ")
        print("[+] at the moment the script can check just for basic sqli weaknesses ......")
-       print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+       print("######################################################################################################################")
        print("the menu: ")
        print ("[+] Please enter the dir of dorks:")
        dir = input()
