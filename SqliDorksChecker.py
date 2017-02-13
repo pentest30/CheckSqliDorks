@@ -26,6 +26,7 @@ def main():
            f = open(dir,"r")
            dorks= f.readlines()
            for d in dorks:
+                if d=='':continue
                 print (Fore.RED,Style.BRIGHT,"[+] search for :"+d.strip())
                 links=GoogleDorkSearch.getUrls(d.strip() , response, port)
                 if len(links)>0:

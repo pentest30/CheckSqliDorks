@@ -1,5 +1,93 @@
+inurl:”forecast.php?page=”
+inurl:”mobile.php?page=”
+inurl:”ku/news.php?readmore=”
+inurl:”cat.php?pid=”
+inurl:”photogallery.php?album_id=”
+inurl:”articles.php?cat_id=”
+inurl:”readarticle.php?article_id=”
+inurl:”news.php?readmore=”
+inurl:”mobile.php?id=”
+inurl:”submit_article.php?c=”
+inurl:”cmspage.php?intid=”
+inurl:”cmspage.php?id=”
+inurl:”merchant.php?id=”
+inurl:”merchant.php?pag
+inurl:"typen.asp?id="
+inurl:"ficha.php?id="
+"powered by K:CMS v2.1.1" index.php?profile="
+"powered by K:CMS v2.1.1"
+inurl:"option=com_mytube"
+/index.php?&option=com_mytube&Itemid=88&view=videos&type=member&user_id=
+comment:Vulnerable files***-----
+filetype:pl -intext:"/usr/bin/perl" inurl:webcal (inurl:webcal | inurl:add | inurl:delete | inurl:config)
+"File Upload Manager v1.3" "rename to"
+"Powered by Land Down Under 601"
+"powered by YellDL"
+ext:asp "powered by DUForum" inurl:(messages|details|login|default|register) -site:duware.com
+ext:asp inurl:DUgallery intitle:"3.0" -site:dugallery.com -site:duware.com
+ext:cgi inurl:ubb6_test
+ezBOO "Administrator Panel" -cvs
+filetype:cgi inurl:cachemgr.cgi
+filetype:cnf my.cnf -cvs -example
+filetype:inc inc intext:setcookie
+filetype:lit lit (books|ebooks)
+filetype:mdb inurl:"news/news"
+filetype:php inurl:"viewfile" -"index.php" -"idfil
+filetype:wsdl wsdl
+intitle:gallery inurl:setup "Gallery configuration" -----Gallery configuration setup files-----
+intitle:"ASP FileMan" Resend -site:iisworks.com
+intitle:"Directory Listing" "tree view"
+intitle:"Index of /" modified php.exe
+intitle:"PHP Explorer" ext:php (inurl:phpexplorer.php | inurl:list.php | inurl:browse.php)
+intitle:"phpremoteview" filetype:php "Name, Size, Type, Modify"
+intitle:mywebftp "Please enter your password"
+inurl:" WWWADMIN.PL" intitle:"wwwadmin"
+inurl:"nph-*****.cgi" "Start browsing through this CGI-based *****"
+inurl:"plog/register.php"
+inurl:cgi.asx?StoreID
+inurl:changepassword.cgi -cvs
+inurl:click.php intext:PHPClickLog
+inurl:php.exe filetype:exe -example.com
+inurl:robpoll.cgi filetype:cgi
+link:http://www.toastforums.com/
+"create the Super User" "now by clicking here" -----PHP-Nuke - create super user right now !-----
+intitle:"Index of" _vti_inf.html
+intitle:"Index of" service.pwd
+intitle:"Index of" users.pwd
+intitle:"Index of" authors.pwd
+intitle:"Index of" administrators.pwd
+intitle:"Index of" shtml.dll
+intitle:"Index of" shtml.exe
+intitle:"Index of" fpcount.exe
+intitle:"Index of" default.asp
+intitle:"Index of" showcode.asp
+intitle:"Index of" sendmail.cfm
+intitle:"Index of" getFile.cfm
+intitle:"Index of" imagemap.exe
+intitle:"Index of" test.bat
+intitle:"Index of" msadcs.dll
+intitle:"Index of" htimage.exe
+intitle:"Index of" counter.exe
+intitle:"Index of" browser.inc
+intitle:"Index of" hello.bat
+intitle:"Index of" default.asp\\
+intitle:"Index of" dvwssr.dll
+intitle:"Index of" dvwssr.dll
+intitle:"Index of" dvwssr.dll
+intitle:"Index of" cart32.exe
+intitle:"Index of" add.exe
+intitle:"Index of" index.JSP
+intitle:"Index of" index.jsp
+intitle:"Index of" SessionServlet
+intitle:"Index of" shtml.dll
+intitle:"Index of" index.cfm
+intitle:"Index of" page.cfm
+intitle:"Index of" shtml.exe
+intitle:"Index of" web_store.cgi
+intitle:"Index of" shop.cgi
+intitle:"Index of" upload.asp
+intitle:"Index of" default.asp
 content.php?id=
-addToCart.php?idProduct=
 view_items.php?id=
 default.php?cPath=
 book.php?id=
@@ -169,6 +257,7 @@ board/kboard.php?board=
 index.php?id=
 board/view_temp.php?table=
 magazine-details.php?magid=
+
 inurl: checkout.asp?UserID=
 inurl: checkout.asp?cartid=
 inurl: checkout.cfm?UserID=
@@ -820,5 +909,3 @@ viewcart.cfm?CartId=
 viewcart.php?CartId=
 x/product.php?productid=
 xcart/home.php?cat
-
-
