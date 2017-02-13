@@ -12,8 +12,9 @@ def crawl (url):
         if (req.status_code!=200):
             return []
         links = link_re.findall(req.text)
-        exist = False
+
         for l in links:
+           exist = False
            if (l.find("http")==-1):
                for r in result:
                    if l in r:
@@ -21,9 +22,9 @@ def crawl (url):
                        break
 
                if (exist == True):
-                    exist = False
+
                     continue
-           else:continue
+           #else:continue
            if (l.startswith('/')):
                uri = url + l
            else:
