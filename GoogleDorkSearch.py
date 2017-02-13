@@ -1,24 +1,14 @@
-import os
-import random
 from urllib import parse
 
-import requests
 from bs4 import BeautifulSoup
+
+import Requester
 
 
 def getUrls(search_string , tor,port):
     temp= []
     url = 'https://www.google.com/search?q='
-    dir=os.getcwd()+"/user-agents/user-agents.txt"
-    f = open(dir, "r")
-    headerslist = f.readlines()
-    rd=random.randint(0, len(headerslist)-1)
-    header = {"user-agent": headerslist[rd].strip()}
-
-    if tor == "yes":
-        proxies = {'socks5': '127.0.0.1:' + port}
-        r = requests.get(url + search_string, headers=header, proxies=proxies)
-    else:r= requests.get( url + search_string,  headers=header)
+    r = Requester.RequestUrl(port, search_string, tor, url)
     soup= BeautifulSoup( r.text, 'html.parser' )
     h3tags= soup.find_all( 'h3' )
 
@@ -50,3 +40,5 @@ def getUrls(search_string , tor,port):
                 continue
 
     return temp
+
+

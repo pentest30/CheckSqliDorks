@@ -14,9 +14,8 @@ from requests.packages.urllib3.exceptions import InsecureRequestWarning
 import Result
 
 results = []
-
-
 def saveResults(payload, url):
+
     r1 = Result.Result(url, payload, "MySQl server", "")
     for rrr in results:
         if rrr.url == r1.url:
