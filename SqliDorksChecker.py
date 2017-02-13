@@ -30,12 +30,12 @@ def main():
            dorks= f.readlines()
            for d in dorks:
                 if d=='':continue
-                print (Fore.RED,Style.BRIGHT,"["+datetime. datetime.time().hour+":"+datetime.time().minute+":"+ datetime.time().second+ "] search for :"+d.strip())
+                print (Fore.RED,Style.BRIGHT,"["+str(datetime.datetime.now().hour)+":"+str(datetime.datetime.now().minute)+":"+ str(datetime.datetime.now().second)+ "] search for :"+d.strip())
                 links=GoogleDorkSearch.getUrls(d.strip() , response, port)
                 if len(links)>0:
                     for l in links:
                         print('---------------------------------')
-                        print(Fore.WHITE,Style.BRIGHT,"["+datetime. datetime.time().hour+":"+datetime.time().minute+":"+ datetime.time().second+ ']  Current URL ' + l  )
+                        print(Fore.WHITE,Style.BRIGHT,"["+str(datetime.datetime.now().hour)+":"+str(datetime.datetime.now().minute)+":"+ str(datetime.datetime.now().second)+ ']  Current URL ' + l  )
                         UrlCheckSqli.checkForSqli(l, response, port )
 
 
