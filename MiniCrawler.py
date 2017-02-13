@@ -24,7 +24,7 @@ def crawl (url):
                if (exist == True):
 
                     continue
-           #else:continue
+           else:continue
            if (l.startswith('/')):
                uri = url + l
            else:
