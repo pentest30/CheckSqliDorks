@@ -1,4 +1,4 @@
-Warning: mysql_num_rows(): supplied argument is not a valid MySQL result resource
+Warning: mysql_num_rows(): 
 Microsoft OLE DB Provider for ODBC Drivers error
 error in your SQL syntax
 SQL command not properly ended
