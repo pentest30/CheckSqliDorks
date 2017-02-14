@@ -23,7 +23,7 @@ def main():
        print(Fore.YELLOW, Style.BRIGHT, "2) -scan a given URL:")
        choice = input("# ")
        print(choice)
-       if choice==" 1":
+       if choice=="1":
            print (Fore.YELLOW,"[+] Please enter the dir of dorks:")
            dir = input()
            if (dir==''):return

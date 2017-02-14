@@ -14,7 +14,7 @@ def crawl (url, host):
     try:
         if host=="" :
             host= url
-        req = Requester.RequestUrl('9050','','yes',url.strip())
+        req = Requester.RequestUrl('9050','','no',url.strip())
         if (req.status_code!=200):
             return []
         links = link_re.findall(req.text)
