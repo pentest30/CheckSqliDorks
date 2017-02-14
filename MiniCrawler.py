@@ -4,6 +4,7 @@ import time
 import sys
 from colorama import Fore
 import Requester
+from urllib.parse import  urljoin
 
 result = []
 link_re = re.compile(r'href="(.*?)"')
@@ -25,8 +26,7 @@ def crawl (url, host):
             if (l ==url)  or l in set(dirs): continue
             #if "http" in l : continue
 
-            if ('/' in set(l) and (host in l) ==False):uri = host + l
-            elif  (host in l ==False) :uri = host + "/" + l
+            if  (host in l ==False) :uri = urljoin(host,l)
             else:uri=l
             if uri in set(result)  or len(exp) > 0: continue
             result.append(uri)

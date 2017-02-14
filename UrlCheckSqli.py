@@ -71,7 +71,9 @@ def runSqliTest(url, payload, toruse, port , fuzzingType):
     if query != {}:
         data = {}
         for q in query:
-            data[q] = payload
+            val=""
+            val = extractValues(o, q, val)
+            data[q] =val+ payload
 
         r = preparePOSTRequest(port, toruse,o.geturl() , data)
         if (fuzzingType =="Normal"):basicSqliCheck(r,url, payload, errorList)
@@ -87,10 +89,20 @@ def runSqliTest(url, payload, toruse, port , fuzzingType):
                    for f in forms:
                        data.update( f["name"], payload)
                    r2 = preparePOSTRequest(port, toruse, url ,data)
-                   basicSqliCheck(r2, url, payload)
+                   basicSqliCheck(r2, url, payload, errorList)
 
            except:
                return
+
+
+def extractValues(o, q, val):
+    pos = o.query.find(q) + len(q) + 1
+    for i in range(pos, len(o.query)):
+        if (o.query[i] != '&'):
+            val += o.query[i]
+        else:
+            break
+    return val
 
 
 def basicSqliCheck(r,url, payload,errors):
