@@ -52,6 +52,6 @@ def main():
        else:
            print(Fore.YELLOW, "[+] Please enter the URL:")
            url = input("# ")
-           MiniCrawler.crawl(url)
+           MiniCrawler.crawl(url,'')
 if (__name__ == '__main__'):
     main()
