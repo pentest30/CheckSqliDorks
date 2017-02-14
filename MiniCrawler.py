@@ -1,12 +1,10 @@
 import re
 import threading
-
 import time
-
 import sys
 from colorama import Fore
-
 import Requester
+
 result = []
 link_re = re.compile(r'href="(.*?)"')
 dirs = []
@@ -27,7 +25,7 @@ def crawl (url, host):
             if (l ==url)  or l in set(dirs): continue
             #if "http" in l : continue
 
-            if ('/' in set(l)):uri = host + l
+            if ('/' in set(l) and ('http' in l) ==False):uri = host + l
             else:uri = host + "/" + l
             if uri in set(result)  or len(exp) > 0: continue
             result.append(uri)
