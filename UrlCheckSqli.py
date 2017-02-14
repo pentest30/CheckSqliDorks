@@ -112,7 +112,7 @@ def basicSqliCheck(r,url, payload,errors):
 
 
         except BaseException as e:
-            print(str(e))
+            #print(str(e))
             return
 
 

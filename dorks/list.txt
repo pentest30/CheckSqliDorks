@@ -1,4 +1,4 @@
-
+inurl:index.php?option=com_gameserver&grp=
     about.php?cartID=
     accinfo.php?cartId=
     acclogin.php?cartID=
