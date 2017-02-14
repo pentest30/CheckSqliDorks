@@ -29,6 +29,7 @@ def saveResults(payload, url):
 
 
 def preparePOSTRequest(port, toruse, url ,data):
+
     requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
     dir = os.getcwd() + "/user-agents/user-agents.txt"
     f = open(dir, "r")
@@ -73,9 +74,9 @@ def runSqliTest(url, payload, toruse, port , fuzzingType):
         for q in query:
             val=""
             val = extractValues(o, q, val)
-            data[q] =val+ payload
+            data[q] =val+" "+ payload
 
-        r = preparePOSTRequest(port, toruse,o.geturl() , data)
+        r = preparePOSTRequest(port, toruse,url.split('?',maxsplit=1)[0] , data)
         if (fuzzingType =="Normal"):basicSqliCheck(r,url, payload, errorList)
         else:blindSqlCHeck()
     elif query=={}:
@@ -106,15 +107,21 @@ def extractValues(o, q, val):
 
 
 def basicSqliCheck(r,url, payload,errors):
-    if r == '':
+
+    if r == '' :
         return
+    #print(r.url)
+    try:
+        if r.status_code != 200: return
+    except:return
 
     else:
         try:
             soup = BeautifulSoup(r.text, 'html.parser')
             text = ''.join(soup.text)
             for e in errors:
-                if (e in text):
+                 if (text.find(e)>-1):
+
                     print(Fore.RED, Style.BRIGHT, "[" + str(datetime.datetime.now().hour) + ":" + str(
                         datetime.datetime.now().minute) + ":" + str(
                         datetime.datetime.now().second) + "] seems to be vulnerable to SQL injection")
@@ -126,7 +133,7 @@ def basicSqliCheck(r,url, payload,errors):
 
 
         except BaseException as e:
-            #print(str(e))
+            print(str(e))
             return
 
 
