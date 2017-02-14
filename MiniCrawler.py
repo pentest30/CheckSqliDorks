@@ -30,7 +30,7 @@ def crawl (url, host):
             else:uri=l
             if uri in set(result)  or len(exp) > 0: continue
             result.append(uri)
-            print(l)
+            print(uri)
             dirs.append(l)
             t = threading.Thread(target=crawl, args=(uri,host,))
             threads.append(t)

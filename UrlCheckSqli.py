@@ -59,7 +59,9 @@ def runSqliTest(url, payload, toruse, port , fuzzingType):
         if url == rrr.url:
             #threading.Lock().release()
             return
-
+    dirSqlErroMsg = os.getcwd() +"/errors.txt"
+    fileName = open(dirSqlErroMsg, "r")
+    errorList = fileName.readlines()
     o = urlparse(url)
     query = parse_qs(o.query)
 
@@ -70,7 +72,7 @@ def runSqliTest(url, payload, toruse, port , fuzzingType):
             data[q] = payload
 
         r = preparePOSTRequest(port, toruse,o.geturl() , data)
-        if (fuzzingType =="Normal"):basicSqliCheck(r,url, payload)
+        if (fuzzingType =="Normal"):basicSqliCheck(r,url, payload, errorList)
         else:blindSqlCHeck()
     elif query=={}:
         r = preparePOSTRequest(port, toruse, url ,{})
@@ -89,7 +91,7 @@ def runSqliTest(url, payload, toruse, port , fuzzingType):
                return
 
 
-def basicSqliCheck(r,url, payload):
+def basicSqliCheck(r,url, payload,errors):
     if r == '':
         return
 
@@ -97,29 +99,16 @@ def basicSqliCheck(r,url, payload):
         try:
             soup = BeautifulSoup(r.text, 'html.parser')
             text = ''.join(soup.text)
-            if (
-                            'Microsoft OLE DB Provider for ODBC Drivers error' in text or 'Microsoft SQL Native Client error' in text):
-                print(Fore.RED,Style.BRIGHT,"["+str(datetime.datetime.now().hour)+":"+str(datetime.datetime.now().minute)+":"+ str(datetime.datetime.now().second)+ "] seems to be vulnerable to SQL injection")
-                print(Fore.GREEN,Style.BRIGHT,"["+datetime. datetime.time().hour+":"+str(datetime.datetime.minute)+":"+ str(datetime.datetime.second)+ "] Possible database : MS SQl server")
-                saveResults(payload, url)
-                return
+            for e in errors:
+                if (e in text):
+                    print(Fore.RED, Style.BRIGHT, "[" + str(datetime.datetime.now().hour) + ":" + str(
+                        datetime.datetime.now().minute) + ":" + str(
+                        datetime.datetime.now().second) + "] seems to be vulnerable to SQL injection")
 
-            elif ("error in your SQL syntax" in text):
-                print(Fore.RED,Style.BRIGHT,"["+str(datetime.datetime.now().hour)+":"+str(datetime.datetime.now().minute)+":"+ str(datetime.datetime.now().second)+ "] seems to be vulnerable to SQL injection")
-                print(Fore.GREEN,Style.BRIGHT,"["+str(datetime.datetime.now().hour)+":"+str(datetime.datetime.now().minute)+":"+ str(datetime.datetime.now().second)+ "] Possible database: MySQl")
-                saveResults(payload, url)
-                return
+                    saveResults(payload, url)
+                    return
 
-            elif ("SQL command not properly ended" in text):
-                print(Fore.RED,Style.BRIGHT,"["+str(datetime.datetime.now().hour)+":"+str(datetime.datetime.now().minute)+":"+ str(datetime.datetime.now().second)+ "] seems to be vulnerable to SQL injection")
-                print(Fore.GREEN,Style.BRIGHT,"["+str(datetime.datetime.now().hour)+":"+str(datetime.datetime.now().minute)+":"+ str(datetime.datetime.now().second)+ "] Possible database :Oracle")
-                saveResults(payload, url)
-                return
-            elif ("Query failed: ERROR: syntax error at or near" in text):
-                print(Fore.RED,Style.BRIGHT,"["+str(datetime.datetime.now().hour)+":"+str(datetime.datetime.now().minute)+":"+ str(datetime.datetime.now().second)+ "] seems to be vulnerable to SQL injection")
-                print(Fore.GREEN,Style.BRIGHT,"["+str(datetime.datetime.now().hour)+":"+str(datetime.datetime.now().minute)+":"+ str(datetime.datetime.now().second)+ "] Possible database :Oracle")
-                saveResults(payload, url)
-                return
+
 
 
         except BaseException as e:
