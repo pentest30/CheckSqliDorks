@@ -33,6 +33,7 @@ def preparePOSTRequest(port, toruse, url ,data):
     dir = os.getcwd() + "/user-agents/user-agents.txt"
     f = open(dir, "r")
     headers = f.readlines()
+    f.close()
     rd = random.randint(0, len(headers) - 1)
     header = {"user-agent": headers[rd].strip()}
     try:
@@ -62,6 +63,7 @@ def runSqliTest(url, payload, toruse, port , fuzzingType):
     dirSqlErroMsg = os.getcwd() +"/errors.txt"
     fileName = open(dirSqlErroMsg, "r")
     errorList = fileName.readlines()
+    fileName.close()
     o = urlparse(url)
     query = parse_qs(o.query)
 
@@ -122,6 +124,7 @@ def prepareGetRequest(port, toruse, url):
     dir = os.getcwd() + "/user-agents/user-agents.txt"
     f = open(dir, "r")
     headers = f.readlines()
+    f.close()
     rd = random.randint(0, len(headers) - 1)
     header = {"user-agent": headers[rd].strip()}
     try:
@@ -144,6 +147,7 @@ def checkForSqli(url, torUse, port):
         for f in files:
             fi = open(dir + "/" + f, "r")
             paylaods = fi.readlines()
+            fi.close()
             for p in paylaods:
                 if f.find('blind') > -1:
                     tt =random.randint(3,20)
