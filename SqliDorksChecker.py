@@ -44,6 +44,7 @@ def main():
                             print('---------------------------------')
                             print(Fore.WHITE,Style.BRIGHT,"["+str(datetime.datetime.now().hour)+":"+str(datetime.datetime.now().minute)+":"+ str(datetime.datetime.now().second)+ ']  Current URL ' + l  )
                             UrlCheckSqli.checkForSqli(l, response, port )
+                    else:continue
 
 
 

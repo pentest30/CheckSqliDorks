@@ -30,6 +30,7 @@ def saveResults(payload, url):
 
 def preparePOSTRequest(port, toruse, url ,data):
 
+
     requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
     dir = os.getcwd() + "/user-agents/user-agents.txt"
     f = open(dir, "r")
@@ -75,10 +76,17 @@ def runSqliTest(url, payload, toruse, port , fuzzingType):
             val=""
             val = extractValues(o, q, val)
             data[q] =val+" "+ payload
+            r = preparePOSTRequest(port, toruse, url.split('?', maxsplit=1)[0], data)
+            if r ==None :continue
+            if (r.status_code!=200):continue
+            time.sleep(0.05)
+            if (fuzzingType == "Normal"):
+                basicSqliCheck(r, url, payload, errorList)
+            else:
+                blindSqlCHeck()
+            data[q] = val
 
-        r = preparePOSTRequest(port, toruse,url.split('?',maxsplit=1)[0] , data)
-        if (fuzzingType =="Normal"):basicSqliCheck(r,url, payload, errorList)
-        else:blindSqlCHeck()
+
     elif query=={}:
         r = preparePOSTRequest(port, toruse, url ,{})
         if r!='':
@@ -108,32 +116,31 @@ def extractValues(o, q, val):
 
 def basicSqliCheck(r,url, payload,errors):
 
-    if r == '' :
+    if r == None :
         return
     #print(r.url)
+    if r.text ==None:
+        return
     try:
-        if r.status_code != 200: return
-    except:return
+        if r.status_code != 200:
+            return
+    except:
+        return
 
     else:
         try:
             soup = BeautifulSoup(r.text, 'html.parser')
             text = ''.join(soup.text)
-            for e in errors:
-                 if (text.find(e)>-1):
+            if  "Warning: mysql_num_rows()" in  text or "error in your SQL syntax" in text:
+                print(Fore.RED, Style.BRIGHT, "[" + str(datetime.datetime.now().hour) + ":" + str(
+                    datetime.datetime.now().minute) + ":" + str(
+                    datetime.datetime.now().second) + "] seems to be vulnerable to SQL injection")
 
-                    print(Fore.RED, Style.BRIGHT, "[" + str(datetime.datetime.now().hour) + ":" + str(
-                        datetime.datetime.now().minute) + ":" + str(
-                        datetime.datetime.now().second) + "] seems to be vulnerable to SQL injection")
-
-                    saveResults(payload, url)
-                    return
-
-
-
+                saveResults(payload, url)
+                return
 
         except BaseException as e:
-            print(str(e))
+            #print(str(e))
             return
 
 

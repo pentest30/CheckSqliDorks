@@ -9,7 +9,10 @@ def getUrls(search_string , tor,port):
     temp= []
     url = 'https://www.google.com/search?q='
     r = Requester.RequestUrl(port, search_string, tor, url)
-    soup= BeautifulSoup( r.text, 'html.parser' )
+    try:
+        soup = BeautifulSoup(r.text, 'html.parser')
+    except:
+        return
     h3tags= soup.find_all( 'h3' )
 
     if (len(h3tags)>0):
