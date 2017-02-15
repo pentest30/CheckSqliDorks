@@ -10,6 +10,7 @@ import MiniCrawler
 def main():
 
        port="0"
+       print('\n')
        print(Fore.GREEN,' $$$$$$\  $$\                           $$\        $$$$$$\            $$\ $$\ $$$$$$$\                      $$\                 ')
        print(Fore.GREEN,'$  __$$\ $$ |                          $$ |      $$  __$$\           $$ |\__|$$  __$$\                     $$ |                ')
        print(Fore.GREEN,'$$ /  \__|$$$$$$$\   $$$$$$\   $$$$$$$\ $$ |  $$\ $$ /  \__| $$$$$$\  $$ |$$\ $$ |  $$ | $$$$$$\   $$$$$$\  $$ |  $$\  $$$$$$$\ ')
@@ -21,7 +22,7 @@ def main():
        print(Fore.GREEN,'                                                                  $$ |                                                          ')
        print(Fore.GREEN,'                                                                  $$ |                                                          ')
        print(Fore.GREEN,"                                                                  \__|                                                          ")
-       print( "THE MENU: ")
+       print( "\nTHE MENU: ")
        print(Fore.YELLOW, Style.BRIGHT, "1) -search by dorks:")
        print(Fore.YELLOW, Style.BRIGHT, "2) -scan a given URL:")
        choice = input("# ")
