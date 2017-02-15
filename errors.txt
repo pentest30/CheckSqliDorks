@@ -1,6 +1,0 @@
-Warning: mysql_num_rows():
-Microsoft OLE DB Provider for ODBC Drivers error
-error in your SQL syntax
-SQL command not properly ended
-Query failed: ERROR: syntax error at or near
-Unclosed quotation mark after the character string

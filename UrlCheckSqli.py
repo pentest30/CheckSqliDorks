@@ -62,10 +62,7 @@ def runSqliTest(url, payload, toruse, port , fuzzingType):
         if url == rrr.url:
             #threading.Lock().release()
             return
-    dirSqlErroMsg = os.getcwd() +"/errors.txt"
-    fileName = open(dirSqlErroMsg, "r")
-    errorList = fileName.readlines()
-    fileName.close()
+
     o = urlparse(url)
     query = parse_qs(o.query)
 
@@ -81,7 +78,7 @@ def runSqliTest(url, payload, toruse, port , fuzzingType):
             if (r.status_code!=200):continue
             time.sleep(0.05)
             if (fuzzingType == "Normal"):
-                basicSqliCheck(r, url, payload, errorList)
+                basicSqliCheck(r, url, payload)
             else:
                 blindSqlCHeck()
             data[q] = val
@@ -98,7 +95,7 @@ def runSqliTest(url, payload, toruse, port , fuzzingType):
                    for f in forms:
                        data.update( f["name"], payload)
                    r2 = preparePOSTRequest(port, toruse, url ,data)
-                   basicSqliCheck(r2, url, payload, errorList)
+                   basicSqliCheck(r2, url, payload)
 
            except:
                return
@@ -114,7 +111,7 @@ def extractValues(o, q, val):
     return val
 
 
-def basicSqliCheck(r,url, payload,errors):
+def basicSqliCheck(r,url, payload):
 
     if r == None :
         return
