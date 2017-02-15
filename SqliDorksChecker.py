@@ -12,12 +12,25 @@ def main():
        port="0"
 
 
+
        print(Fore.GREEN,Style.BRIGHT,"##############################################################")
        print(Fore.GREEN,Style.BRIGHT,"[+] script by pentest30, email : adgroupe@hotmail.com")
        print(Fore.GREEN,Style.BRIGHT,"[+] The aim of this script is to help you do a quick check for the websites returned from a search based on a list of dorks of your choice \n "
                         "if they are vulnerable to SQL injections. ")
        print(Fore.GREEN,Style.BRIGHT,"[+] at the moment the script can check just for basic sqli weaknesses!")
        print(Fore.GREEN,Style.BRIGHT,"#############################################################")
+
+       print(Fore.GREEN,' $$$$$$\  $$\                           $$\        $$$$$$\            $$\ $$\ $$$$$$$\                      $$\                 ')
+       print(Fore.GREEN,'$  __$$\ $$ |                          $$ |      $$  __$$\           $$ |\__|$$  __$$\                     $$ |                ')
+       print(Fore.GREEN,'$$ /  \__|$$$$$$$\   $$$$$$\   $$$$$$$\ $$ |  $$\ $$ /  \__| $$$$$$\  $$ |$$\ $$ |  $$ | $$$$$$\   $$$$$$\  $$ |  $$\  $$$$$$$\ ')
+       print(Fore.GREEN,'$$ |      $$  __$$\ $$  __$$\ $$  _____|$$ | $$  |\$$$$$$\  $$  __$$\ $$ |$$ |$$ |  $$ |$$  __$$\ $$  __$$\ $$ | $$  |$$  _____|')
+       print(Fore.GREEN,'$$ |      $$ |  $$ |$$$$$$$$ |$$ /      $$$$$$  /  \____$$\ $$ /  $$ |$$ |$$ |$$ |  $$ |$$ /  $$ |$$ |  \__|$$$$$$  / \$$$$$$\ ')
+       print(Fore.GREEN,'$$ |  $$\ $$ |  $$ |$$   ____|$$ |      $$  _$$<  $$\   $$ |$$ |  $$ |$$ |$$ |$$ |  $$ |$$ |  $$ |$$ |      $$  _$$<   \____$$\ ')
+       print(Fore.GREEN,'\$$$$$$  |$$ |  $$ |\$$$$$$$\ \$$$$$$$\ $$ | \$$\ \$$$$$$  |\$$$$$$$ |$$ |$$ |$$$$$$$  |\$$$$$$  |$$ |      $$ | \$$\ $$$$$$$  |')
+       print(Fore.GREEN,' \______/ \__|  \__| \_______| \_______|\__|  \__| \______/  \____$$ |\__|\__|\_______/  \______/ \__|      \__|  \__|\_______/ ')
+       print(Fore.GREEN,'                                                                  $$ |                                                          ')
+       print(Fore.GREEN,'                                                                  $$ |                                                          ')
+       print(Fore.GREEN,"                                                                  \__|                                                          ")
        print( "THE MENU: ")
        print(Fore.YELLOW, Style.BRIGHT, "1) -search by dorks:")
        print(Fore.YELLOW, Style.BRIGHT, "2) -scan a given URL:")
